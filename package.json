@@ -1,0 +1,105 @@
+{
+  "name": "nestjs-oauth2",
+  "version": "0.0.5",
+  "description": "NestJS OAuth2 Client",
+  "author": "Chung Hwan Han <cndghks15@gmail.com>",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*",
+    "*.md"
+  ],
+  "scripts": {
+    "start:dev": "tsc -w",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test,__tests__}/**/*.ts\" --fix",
+    "lint:ci": "eslint \"{src,apps,libs,test,__tests__}/**/*.ts\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "precommit": [
+    "lint:ci",
+    "test:cov"
+  ],
+  "keywords": [
+    "nestjs",
+    "oauth2",
+    "oauth",
+    "oauth-client"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanchchch/nestjs-oauth2"
+  },
+  "bugs": "https://github.com/hanchchch/nestjs-oauth2",
+  "peerDependencies": {
+    "@nestjs/common": "^9.0.0",
+    "rxjs": "^7.x"
+  },
+  "dependencies": {
+    "@golevelup/nestjs-modules": "^0.6.0",
+    "oauth": "^0.10.0",
+    "rxjs": "^7.x"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^9.0.0",
+    "@nestjs/core": "^9.0.0",
+    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/testing": "^9.0.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "27.4.1",
+    "@types/node": "17.0.23",
+    "@types/supertest": "2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "27.5.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "2.6.1",
+    "reflect-metadata": "^0.1.13",
+    "supertest": "6.3.3",
+    "ts-jest": "27.1.4",
+    "ts-node": "10.7.0",
+    "tsc-watch": "5.0.3",
+    "tsconfig-paths": "3.14.1",
+    "typescript": "4.8.2"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "roots": [
+      "src"
+    ],
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "gaxios": "gaxios",
+      "src/(.*)": "<rootDir>/src/$1"
+    }
+  }
+}

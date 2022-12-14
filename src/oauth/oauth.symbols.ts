@@ -1,0 +1,2 @@
+export const OAUTH_OPTIONS = "OAUTH_OPTIONS";
+export const OAUTH_SERVICE = "OAUTH_SERVICE";
