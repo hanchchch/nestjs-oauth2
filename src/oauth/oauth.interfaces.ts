@@ -1,7 +1,7 @@
 import { ModuleMetadata } from "@nestjs/common";
 
-export interface OAuthOptions {
-  provider: string;
+export interface OAuthProvider {
+  name: string;
   clientId: string;
   clientSecret: string;
   authorizeUrl: string;
@@ -11,8 +11,15 @@ export interface OAuthOptions {
   scope?: string;
 }
 
-export interface OAuthAsyncOptions extends Pick<ModuleMetadata, "imports"> {
-  useFactory: (...args: any[]) => OAuthOptions[];
+export interface OAuthModuleOptions {
+  providers: OAuthProvider[];
+}
+
+export interface OAuthModuleAsyncOptions
+  extends Pick<ModuleMetadata, "imports"> {
+  useFactory: (
+    ...args: any[]
+  ) => Promise<OAuthModuleOptions> | OAuthModuleOptions;
   inject?: any[];
 }
 

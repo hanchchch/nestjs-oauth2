@@ -3569,10 +3569,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-nestjs-oauth2@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/nestjs-oauth2/-/nestjs-oauth2-0.0.5.tgz#8e01695d5fdb383b6343874266cd822e6ef6de16"
-  integrity sha512-74egucYRRkB/cEzJ+Ie+9ZKmyR9rPj9pVMoG53fLjZDOSSRJT+/Fr9EAXwDH2eRJSEbXmKQCfQEnBey6va7Z0A==
+nestjs-oauth2@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/nestjs-oauth2/-/nestjs-oauth2-0.0.7.tgz#6d7418152c2ebd5b8d4ba9135a311f5ea0d9cdb8"
+  integrity sha512-P4HfJziGsMl4+aTclr9vkqfbI84odja1kOjKZw095A+b4ksVczOC4J/AH4BydsIAPVsj/5RJj4aGFoWV90Bu1w==
   dependencies:
     "@golevelup/nestjs-modules" "^0.6.0"
     oauth "^0.10.0"

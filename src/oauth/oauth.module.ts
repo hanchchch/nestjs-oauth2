@@ -1,41 +1,52 @@
 import { DynamicModule, Module, Provider } from "@nestjs/common";
+import { DefaultStateService } from "../state/default.state-service";
 import { StateModule } from "../state/state.module";
-import { OAuthController } from "./oauth.controller";
-import { OAuthAsyncOptions, OAuthOptions } from "./oauth.interfaces";
+import { StateService } from "../state/state.service";
+import { OAUTH_STATE_SERVICE } from "../state/state.symbols";
+import {
+  OAuthModuleAsyncOptions,
+  OAuthModuleOptions,
+} from "./oauth.interfaces";
 import { OAuthService } from "./oauth.service";
 import { OAUTH_OPTIONS, OAUTH_SERVICE } from "./oauth.symbols";
 
-@Module({
-  imports: [StateModule],
-  controllers: [OAuthController],
-})
+@Module({})
 export class OAuthModule {
-  static forFeature(options: OAuthOptions[]): DynamicModule {
+  static forFeature(options: OAuthModuleOptions): DynamicModule {
     const oauthService = this.createOAuthServiceProvider();
+    const stateService = this.createStateServiceProvider();
+
     return {
       module: OAuthModule,
-      controllers: [],
-      providers: [...this.createOAuthConfigProvider(options), oauthService],
-      exports: [oauthService],
+      imports: [StateModule],
+      providers: [
+        ...this.createOAuthConfigProvider(options),
+        oauthService,
+        stateService,
+      ],
+      exports: [oauthService, stateService],
     };
   }
 
-  static forFeatureAsync(options: OAuthAsyncOptions): DynamicModule {
+  static forFeatureAsync(options: OAuthModuleAsyncOptions): DynamicModule {
     const oauthService = this.createOAuthServiceProvider();
+    const stateService = this.createStateServiceProvider();
+
     return {
       module: OAuthModule,
-      controllers: [],
+      imports: [StateModule],
       providers: [
         ...this.createOAuthConfigAsyncProvider(options),
         oauthService,
+        stateService,
       ],
-      exports: [oauthService],
+      exports: [oauthService, stateService],
     };
   }
 
   private static createOAuthConfigProvider(
-    options: OAuthOptions[],
-  ): Provider<OAuthOptions[]>[] {
+    options: OAuthModuleOptions,
+  ): Provider<OAuthModuleOptions>[] {
     return [
       {
         provide: OAUTH_OPTIONS,
@@ -45,8 +56,8 @@ export class OAuthModule {
   }
 
   private static createOAuthConfigAsyncProvider(
-    options: OAuthAsyncOptions,
-  ): Provider<OAuthOptions[]>[] {
+    options: OAuthModuleAsyncOptions,
+  ): Provider<OAuthModuleOptions>[] {
     return [
       {
         provide: OAUTH_OPTIONS,
@@ -60,6 +71,13 @@ export class OAuthModule {
     return {
       provide: OAUTH_SERVICE,
       useClass: OAuthService,
+    };
+  }
+
+  private static createStateServiceProvider(): Provider<StateService> {
+    return {
+      provide: OAUTH_STATE_SERVICE,
+      useClass: DefaultStateService,
     };
   }
 }

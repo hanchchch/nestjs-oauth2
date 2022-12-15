@@ -1,2 +1,3 @@
 export const OAUTH_OPTIONS = "OAUTH_OPTIONS";
+export const OAUTH_PROVIDERS = "OAUTH_PROVIDERS";
 export const OAUTH_SERVICE = "OAUTH_SERVICE";

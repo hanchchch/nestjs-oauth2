@@ -1,6 +1,6 @@
 import { OAuth2 } from "oauth";
 import {
-  OAuthOptions,
+  OAuthProvider,
   OAuthTokenResponse,
   RawOAuthTokenResponse,
 } from "./oauth.interfaces";
@@ -8,27 +8,27 @@ import {
 export class OAuthImplement {
   private readonly defaultRedirectUri: string;
 
-  constructor(private readonly options: OAuthOptions) {
+  constructor(private readonly provider: OAuthProvider) {
     // TODO port
-    this.defaultRedirectUri = `${this.options.redirectOrigin}/oauth/${this.options.provider}/callback`;
+    this.defaultRedirectUri = `${this.provider.redirectOrigin}/oauth/${this.provider.name}/callback`;
   }
 
   getOAuth2({ mode }: { mode: "authorize" | "accessToken" }): OAuth2 {
     if (mode === "authorize") {
       return new OAuth2(
-        this.options.clientId,
-        this.options.clientSecret,
-        new URL(this.options.authorizeUrl).origin,
-        new URL(this.options.authorizeUrl).pathname,
+        this.provider.clientId,
+        this.provider.clientSecret,
+        new URL(this.provider.authorizeUrl).origin,
+        new URL(this.provider.authorizeUrl).pathname,
       );
     }
     if (mode === "accessToken") {
       return new OAuth2(
-        this.options.clientId,
-        this.options.clientSecret,
-        new URL(this.options.accessTokenUrl).origin,
+        this.provider.clientId,
+        this.provider.clientSecret,
+        new URL(this.provider.accessTokenUrl).origin,
         "",
-        new URL(this.options.accessTokenUrl).pathname,
+        new URL(this.provider.accessTokenUrl).pathname,
       );
     }
   }
@@ -36,9 +36,9 @@ export class OAuthImplement {
   getAuthorizeUrl({ state }: { state: string }): string {
     return this.getOAuth2({ mode: "authorize" }).getAuthorizeUrl({
       response_type: "code",
-      redirect_uri: this.options.redirectUri || this.defaultRedirectUri,
+      redirect_uri: this.provider.redirectUri || this.defaultRedirectUri,
       state,
-      scope: this.options.scope || "",
+      scope: this.provider.scope || "",
     });
   }
 
@@ -48,7 +48,7 @@ export class OAuthImplement {
         code,
         {
           grant_type: "authorization_code",
-          redirect_uri: this.options.redirectUri || this.defaultRedirectUri,
+          redirect_uri: this.provider.redirectUri || this.defaultRedirectUri,
         },
         (
           err: unknown,

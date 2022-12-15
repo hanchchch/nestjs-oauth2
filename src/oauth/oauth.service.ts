@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotImplementedException } from "@nestjs/common";
 import { OAuthImplement } from "./oauth.implement";
-import { OAuthOptions } from "./oauth.interfaces";
+import { OAuthModuleOptions } from "./oauth.interfaces";
 import { OAUTH_OPTIONS } from "./oauth.symbols";
 
 @Injectable()
@@ -9,9 +9,11 @@ export class OAuthService {
     [key: string]: OAuthImplement;
   } = {};
 
-  constructor(@Inject(OAUTH_OPTIONS) private readonly options: OAuthOptions[]) {
-    this.options.forEach((options) => {
-      this.oauthMap[options.provider] = new OAuthImplement(options);
+  constructor(
+    @Inject(OAUTH_OPTIONS) private readonly options: OAuthModuleOptions,
+  ) {
+    this.options.providers.forEach((provider) => {
+      this.oauthMap[provider.name] = new OAuthImplement(provider);
     });
   }
 

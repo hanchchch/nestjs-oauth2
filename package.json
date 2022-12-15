@@ -1,6 +1,6 @@
 {
   "name": "nestjs-oauth2",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "NestJS OAuth2 Client",
   "author": "Chung Hwan Han <cndghks15@gmail.com>",
   "license": "MIT",
