@@ -173,7 +173,7 @@ import { OAuthService, InjectOAuth } from "nestjs-oauth2";
 export class UsersController {
   constructor(@InjectOAuth() private readonly oauthService: OAuthService) {}
 
-  @Get(`:provider`)
+  @Get(`oauth/:provider`)
   oauthStart(@Param(`provider`) provider: string, @Res() res: Response) {
     res.redirect(
       this.oauthService.with(provider).getAuthorizeUrl({ state: randomUUID() }),
